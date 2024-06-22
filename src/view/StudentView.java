@@ -22,12 +22,17 @@ public class StudentView implements UserView<Student> {
         controller.createStudent("Джохаридзе", "Сергей", "Олегович");
         controller.createTeacher("Иванов", "Алексей", "Порфирьевич");
         controller.createTeacher("Аршинов", "Григорий", "Сергеевич");
-        controller.createStudentGroup(5, List.of(1, 3));
-        controller.createStudentGroup(6, List.of(2, 4));
-        controller.printStudentGroups(); //можно вывести все группы
-        //controller.printStudentGroupById(2); //можно только вторую группу
+        // controller.printAllStudents();
+        // controller.printAllTeachers();
+        controller.createStudentGroup(1, List.of(1, 3));
+        controller.createStudentGroup(2, List.of(2, 4));
+        System.out.println("Все группы:");
+        controller.printStudentGroups();
+        System.out.println("Только группа с id = 2");
+        controller.printStudentGroupById(2);
         // в ТЗ написано: функция формирования из Студентов и Преподавателя УчебнойГруппы и возвращения его;
-        // "его" это преподавателя видимо. Вывод учителя группы с id 2:
+        // "его" это преподавателя видимо. Вывод учителя группы с id 2, поэтому
+        System.out.println("Выводим преподавателя группы id = 2:");
         controller.printTeacherByGroupId(2);
     }
 }

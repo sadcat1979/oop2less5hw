@@ -3,7 +3,6 @@ package src.service;
 import java.util.ArrayList;
 import java.util.List;
 import src.model.Type;
-import src.model.User;
 import src.model.impl.Student;
 import src.model.impl.Teacher;
 
@@ -11,66 +10,54 @@ public class DataService {
 
     //не уверен правильно ли понял ТЗ, сделал общую "базу", объекты различаются по InstanceOf,
     //в теории студент может доучиться до преподавателя
-    private static final List<User> userList = new ArrayList<>();
+    private static final List<Student> studentList = new ArrayList<>();
+    private static final List<Teacher> teacherList = new ArrayList<>();
     //а должна ли быть БД public? никто ж не мешает new DataService().getAllUsers()
 
     public Integer create(Type type, String lastName, String firstName, String middleName) {
-        Integer id = getFreeId();
+        Integer id = 0;
         if (type == Type.STUDENT) {
-            Student student = new Student(id, lastName, firstName, middleName);
-            userList.add(student);
+            id = getStudentNewId();
+            studentList.add(new Student(id, lastName, firstName, middleName));
         }
         if (type == Type.TEACHER) {
-            Teacher teacher = new Teacher(id, lastName, firstName, middleName);
-            userList.add(teacher);
+            id = getTeacherNewId();
+            teacherList.add(new Teacher(id, lastName, firstName, middleName));
         }
         return id;
     }
 
-    // Пришлось так написать из-за задания 1 в презентации
     public Teacher getTeacherById(Integer id) {
-        for (User user : userList) {
-            if ((user instanceof Teacher) && (((Teacher) user).getTeacherId() == id)) {
-                return (Teacher) user;
+        for (Teacher teacher : teacherList) {
+            if (teacher.getTeacherId() == id) {
+                return teacher;
             }
         }
-        return null;//throw new Exception(id+" not found");
+        return null;//throw new Exception("Преподаватель с id " + id + " не найден");
     }
 
     public Student getStudentById(Integer id) {
-        for (User user : userList) {
-            if ((user instanceof Student) && (((Student) user).getStudentId() == id)) {
-                return (Student) user;
+        for (Student student : studentList) {
+            if (student.getStudentId() == id) {
+                return student;
             }
         }
-        return null;//throw new Exception(id+" not found");
-    }
-
-    public List<User> getAllUsers() {
-        return userList;
+        return null;//throw new Exception("Студент с id "+id+" не найден");
     }
 
     public List<Student> getAllStudents() {
-        List<Student> students = new ArrayList<>();
-        for (User user : userList) {
-            if (user instanceof Student) {
-                students.add((Student) user);
-            }
-        }
-        return students;
+        return studentList;
     }
 
     public List<Teacher> getAllTeachers() {
-        List<Teacher> teachers = new ArrayList<>();
-        for (User user : userList) {
-            if (user instanceof Teacher) {
-                teachers.add((Teacher) user);
-            }
-        }
-        return teachers;
+        return teacherList;
     }
 
-    private Integer getFreeId() {
-        return userList.size()+1;
+    private Integer getTeacherNewId() {
+        return teacherList.size() + 1;
+    }
+
+    private Integer getStudentNewId() {
+        return studentList.size() + 1;
     }
 }
