@@ -27,22 +27,22 @@ public class DataService {
         return id;
     }
 
-    public Teacher getTeacherById(Integer id) {
+    public Teacher getTeacherById(Integer id) throws Exception {
         for (Teacher teacher : teacherList) {
             if (teacher.getTeacherId() == id) {
                 return teacher;
             }
         }
-        return null;//throw new Exception("Преподаватель с id " + id + " не найден");
+        throw new Exception("Преподаватель с id " + id + " не найден");
     }
 
-    public Student getStudentById(Integer id) {
+    public Student getStudentById(Integer id) throws Exception {
         for (Student student : studentList) {
             if (student.getStudentId() == id) {
                 return student;
             }
         }
-        return null;//throw new Exception("Студент с id "+id+" не найден");
+        throw new Exception("Студент с id " + id + " не найден");
     }
 
     public List<Student> getAllStudents() {

@@ -37,10 +37,22 @@ public class Controller {
     }
 
     public Integer createStudentGroup(Integer teacherId, List<Integer> studentIdList) {
-        Teacher teacher = (Teacher) dataService.getTeacherById(teacherId);
+        Teacher teacher = null;
+        try {
+            teacher = dataService.getTeacherById(teacherId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());;
+        }
+
         List<Student> studentList = new ArrayList<>();
         for (Integer id : studentIdList) {
-            studentList.add((Student) dataService.getStudentById(id));
+
+            try {
+                studentList.add(dataService.getStudentById(id));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
         }
         return studentGroupService.createStudentGroup(teacher, studentList);
     }
@@ -50,7 +62,15 @@ public class Controller {
     }
 
     public void printStudentGroupById(Integer id) {
-        studentGroupView.sendOnConsole(studentGroupService.getStudentGroupByGroupId(id));
+        StudentGroup group = null;
+
+        try {
+            group = studentGroupService.getStudentGroupByGroupId(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        studentGroupView.sendOnConsole(group);
     }
 
     public void printStudentGroups() {

@@ -20,20 +20,27 @@ public class StudentGroupService {
         return studentGroup.getGroupId();
     }
 
-    public StudentGroup getStudentGroupByGroupId(Integer id) {
+    public StudentGroup getStudentGroupByGroupId(Integer id) throws Exception {
         for (StudentGroup group : studentGroups) {
             if (group.getGroupId().equals(id)) {
                 return group;
             }
         }
-        return null;//throw new Exception("Группа "+id+" не найдена");
+        throw new Exception("Группа " + id + " не найдена");
     }
 
     public Teacher getTeacherByGroupId(Integer id) {
-        return getStudentGroupByGroupId(id).getTeacher();
+        StudentGroup group = null;
+
+        try {
+            group = getStudentGroupByGroupId(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return group.getTeacher();
     }
-    
-    public List<StudentGroup> getAllGroups(){
+
+    public List<StudentGroup> getAllGroups() {
         return studentGroups;
     }
 }
