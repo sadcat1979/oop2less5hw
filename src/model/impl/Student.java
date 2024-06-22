@@ -3,6 +3,7 @@ package src.model.impl;
 import src.model.User;
 
 public class Student extends User {
+
     private final Integer studentId;
 
     public Student(Integer studentId, String lastName, String firstName, String middleName) {
@@ -13,4 +14,10 @@ public class Student extends User {
     public Integer getStudentId() {
         return studentId;
     }
+
+    @Override
+    public String toString() {
+        return String.format(getClass().getSimpleName() + ":id=%s ФИО=%s %s %s", studentId, getLastName(), getFirstName(), getMiddleName());
+    }
+
 }

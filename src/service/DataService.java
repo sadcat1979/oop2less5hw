@@ -70,28 +70,7 @@ public class DataService {
         return teachers;
     }
 
-    // Пришлось так написать из-за задания 1 в презентации
     private Integer getFreeId() {
-        Integer maxId = 0;
-        Integer userId = 0;
-        for (User user : userList) {
-            if (user instanceof Teacher) {
-                userId = ((Teacher) user).getTeacherId();
-            }
-            if (user instanceof Student) {
-                userId = ((Student) user).getStudentId();
-            }
-            if (userId > maxId) {
-                maxId = userId;
-            }
-        }
-        return maxId + 1;
-        //     Integer maxId = 0;
-        //     for (User user : userList) {
-        //         if (user.getId() > maxId) {
-        //             maxId = user.getId();
-        //         }
-        //     }
-        //     return maxId + 1;
+        return userList.size()+1;
     }
 }
