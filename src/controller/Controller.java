@@ -37,10 +37,10 @@ public class Controller {
     }
 
     public Integer createStudentGroup(Integer teacherId, List<Integer> studentIdList) {
-        Teacher teacher = (Teacher) dataService.getById(teacherId);
+        Teacher teacher = (Teacher) dataService.getTeacherById(teacherId);
         List<Student> studentList = new ArrayList<>();
         for (Integer id : studentIdList) {
-            studentList.add((Student) dataService.getById(id));
+            studentList.add((Student) dataService.getStudentById(id));
         }
         return studentGroupService.createStudentGroup(teacher, studentList);
     }

@@ -2,7 +2,6 @@ package src.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import src.model.Type;
 import src.model.User;
 import src.model.impl.Student;
@@ -28,10 +27,20 @@ public class DataService {
         return id;
     }
 
-    public User getById(Integer id) {
+    // Пришлось так написать из-за задания 1 в презентации
+    public Teacher getTeacherById(Integer id) {
         for (User user : userList) {
-            if (Objects.equals(user.getId(), id)) {
-                return user;
+            if ((user instanceof Teacher) && (((Teacher) user).getTeacherId() == id)) {
+                return (Teacher) user;
+            }
+        }
+        return null;//throw new Exception(id+" not found");
+    }
+
+    public Student getStudentById(Integer id) {
+        for (User user : userList) {
+            if ((user instanceof Student) && (((Student) user).getStudentId() == id)) {
+                return (Student) user;
             }
         }
         return null;//throw new Exception(id+" not found");
@@ -61,13 +70,28 @@ public class DataService {
         return teachers;
     }
 
+    // Пришлось так написать из-за задания 1 в презентации
     private Integer getFreeId() {
         Integer maxId = 0;
+        Integer userId = 0;
         for (User user : userList) {
-            if (user.getId() > maxId) {
-                maxId = user.getId();
+            if (user instanceof Teacher) {
+                userId = ((Teacher) user).getTeacherId();
+            }
+            if (user instanceof Student) {
+                userId = ((Student) user).getStudentId();
+            }
+            if (userId > maxId) {
+                maxId = userId;
             }
         }
         return maxId + 1;
+        //     Integer maxId = 0;
+        //     for (User user : userList) {
+        //         if (user.getId() > maxId) {
+        //             maxId = user.getId();
+        //         }
+        //     }
+        //     return maxId + 1;
     }
 }
