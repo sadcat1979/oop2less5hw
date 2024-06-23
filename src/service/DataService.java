@@ -8,8 +8,6 @@ import src.model.impl.Teacher;
 
 public class DataService {
 
-    //не уверен правильно ли понял ТЗ, сделал общую "базу", объекты различаются по InstanceOf,
-    //в теории студент может доучиться до преподавателя
     private static final List<Student> studentList = new ArrayList<>();
     private static final List<Teacher> teacherList = new ArrayList<>();
     //а должна ли быть БД public? никто ж не мешает new DataService().getAllUsers()
